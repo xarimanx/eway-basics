@@ -1,0 +1,13 @@
+= form_for order, html: { class: "form form-horizontal order" } do |f|
+  .form-group
+    = f.label :product, class: 'control-label'
+    .controls
+      = f.text_field :product, class: 'form-control', required: true
+    = error_span(order[:product])
+  .form-group
+    = f.label :price, class: 'control-label'
+    .controls
+      = f.text_field :price, class: 'form-control', required: true
+    = error_span(order[:price])
+  = f.submit nil,class: 'btn btn-primary'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), orders_path, :class => 'btn btn-default'
