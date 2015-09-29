@@ -10,4 +10,4 @@
       = f.text_field :price, class: 'form-control', required: true
     = error_span(order[:price])
   = f.submit nil,class: 'btn btn-primary'
-  = link_to t('.cancel', :default => t("helpers.links.cancel")), orders_path, :class => 'btn btn-default'
+  = link_to t('.cancel', default: t("helpers.links.cancel")), orders_path, class: 'btn btn-default'
