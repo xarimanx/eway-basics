@@ -9,7 +9,7 @@ Order.delete_all
 
 Order.populate 5 do |order|
   order.product = Faker::Commerce.product_name
-  order.price = [4.99, 19.95, 100]
+  order.price = [10, 2.5]
   order.created_at = 2.years.ago..Time.now
-  order.paid = [0, 1]
+  order.paid = [0]
 end
