@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Order.delete_all
+
+Order.populate 5 do |order|
+  order.product = Faker::Commerce.product_name
+  order.price = [4.99, 19.95, 100]
+  order.created_at = 2.years.ago..Time.now
+  order.paid = [0, 1]
+end
