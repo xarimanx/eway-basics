@@ -20,6 +20,7 @@
         %td= order.created_at.strftime("%d/%m/%Y")
         %td
           - unless order.paid?
+            = #link_to 'Checkout', new_order_checkout_path(order), class: 'btn btn-primary btn-xs'
             = link_to t('.edit', default: t("helpers.links.edit")), edit_order_path(order), class: 'btn btn-default btn-xs'
             = link_to t('.destroy', default: t("helpers.links.destroy")), order_path(order), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) }, class: 'btn btn-xs btn-danger'
 
