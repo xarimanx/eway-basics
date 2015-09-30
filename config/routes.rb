@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :orders do
     resource :checkout
+    resource :finalize
   end
   root 'orders#index'
 end

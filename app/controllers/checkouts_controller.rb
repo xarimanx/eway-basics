@@ -14,7 +14,7 @@ class CheckoutsController < ApplicationController
       Payment: {
         TotalAmount: order.price_in_cents
       },
-      RedirectUrl: 'http://localhost:3000',
+      RedirectUrl: order_finalize_url(order),
       CancelUrl: 'http://localhost:3000',
       Method: 'ProcessPayment',
       TransactionType: 'Purchase'
@@ -31,6 +31,7 @@ class CheckoutsController < ApplicationController
         result = response.body_str
       }
     end
+    p JSON.parse(result)
     JSON.parse(result)
   end
 

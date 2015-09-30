@@ -1,9 +1,10 @@
-= form_for order, url: result['FormUrl'], method: :put, html: { class: "form order" } do |f|
+= form_for order, url: result['FormActionURL'], method: :post, html: { class: "form order" } do |f|
   = hidden_field_tag 'EWAY_ACCESSCODE', result['AccessCode']
   = hidden_field_tag 'EWAY_PAYMENTTYPE', 'Credit Card'
   .title-form
     %span
       %strong PAYMENT
+  %br
   .row
     .col-md-8
       .form-group
@@ -36,6 +37,7 @@
     %span
       %strong
         BILLING INFORMATION
+  %br
   .row
     .col-md-4
       .form-group
