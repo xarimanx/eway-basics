@@ -21,5 +21,7 @@
         %td
           %script{ src: "https://secure.ewaypayments.com/scripts/eCrypt.js", class: "eway-paynow-button", |
                    data: { publicapikey: EWAY_PAY_BUTTON_KEY, amount: order.price_in_cents}}
+          %span= link_to 'Get Shared Page', new_order_checkout_path(order), class: 'btn btn-primary'
+          %span= link_to 'Payment Page', edit_order_checkout_path(order), class: 'btn btn-primary'
 
 = link_to t('.new', default: t("helpers.links.new")), new_order_path, class: 'btn btn-primary'

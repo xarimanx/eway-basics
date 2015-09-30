@@ -1,0 +1,59 @@
+= form_for order, url: result['FormUrl'], method: :put, html: { class: "form order" } do |f|
+  = hidden_field_tag 'EWAY_ACCESSCODE', result['AccessCode']
+  = hidden_field_tag 'EWAY_PAYMENTTYPE', 'Credit Card'
+  .title-form
+    %span
+      %strong PAYMENT
+  .row
+    .col-md-8
+      .form-group
+        = label_tag 'EWAY_CARDNAME', 'Cardholder Name:', class: 'control-label'
+        .controls
+          = text_field_tag 'EWAY_CARDNAME', nil, class: 'form-control'
+  .row
+    .col-md-8
+      .form-group
+        = label_tag 'EWAY_CARDNUMBER', 'Credit Card Number:', class: 'control-label'
+        .controls
+          = text_field_tag 'EWAY_CARDNUMBER', nil, class: 'form-control'
+  .row
+    .col-md-6
+      .form-group
+        = label_tag 'EWAY_CARDEXPIRYMONTH', 'Expiry Date:', class: 'control-label'
+        .controls
+          .input-group-btn
+            = select_tag 'EWAY_CARDEXPIRYMONTH', options_for_select((1..12).to_a), class: 'form-control'
+          .input-group-btn
+            = select_tag 'EWAY_CARDEXPIRYYEAR', options_for_select((Date.today.year..Date.today.year+10).to_a), class: 'form-control'
+
+    .col-md-2
+      .form-group
+        = label_tag 'EWAY_CARDCVN', 'CVN:', class: 'control-label'
+        .controls
+          = password_field_tag 'EWAY_CARDCVN', nil, class: 'form-control'
+
+  .title-form
+    %span
+      %strong
+        BILLING INFORMATION
+  .row
+    .col-md-4
+      .form-group
+        = label_tag 'EWAY_SHIPPINGFIRSTNAME', 'First Name:', class: 'control-label'
+        .controls
+          = text_field_tag 'EWAY_SHIPPINGFIRSTNAME', nil, class: 'form-control'
+    .col-md-4
+      .form-group
+        = label_tag 'EWAY_SHIPPINGLASTNAME', 'Last Name:', class: 'control-label'
+        .controls
+          = text_field_tag 'EWAY_SHIPPINGLASTNAME', nil, class: 'form-control'
+  .row
+    .col-md-4
+      .form-group
+        = label_tag 'EWAY_SHIPPINGPOSTALCODE', 'Postal Code:', class: 'control-label'
+        .controls
+          = text_field_tag 'EWAY_SHIPPINGPOSTALCODE', nil, class: 'form-control'
+
+  .row
+    .col-md-8
+      = f.submit 'Pay Now', class: 'btn btn-success'

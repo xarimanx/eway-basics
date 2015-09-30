@@ -14,4 +14,5 @@ Rails.application.configure do
 
   EWAY_API_KEY = 'F9802CLDSnmOLrbsY7sUIGYA6ugt50ks0bekkGUXQobgdHbuYjG3DGkUotYCP1fgZbDpqH'
   EWAY_API_PASS = 'mUvnJZZS'
+  EWAY_SERVICE_URL = 'https://api.sandbox.ewaypayments.com'
 end
