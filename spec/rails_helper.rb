@@ -5,6 +5,10 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
+require 'capybara/rspec'
+require 'capybara/webkit'
+require 'factory_girl_rails'
+require 'site_prism'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -20,13 +24,24 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+Capybara.javascript_driver = :webkit
+Capybara::Webkit.configure do |config|
+  config.allow_url("https://secure.ewaypayments.com/scripts/eCrypt.js")
+  config.allow_url("https://secure-au.sandbox.ewaypayments.com/sharedpage/assets/eway-1-1/css/eway-paynow.css")
+  config.allow_url("secure.ewaypayments.com")
+  config.allow_url("secure-au.sandbox.ewaypayments.com")
+end
+
 RSpec.configure do |config|
+
+  config.before { DatabaseCleaner.start }
+  config.after { DatabaseCleaner.clean }
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
