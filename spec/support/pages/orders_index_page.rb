@@ -1,4 +1,4 @@
-class OrdersPage
+class OrdersIndexPage
   include PageObject
 
   page_url 'http://lvh.me:3000'
