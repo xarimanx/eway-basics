@@ -38,4 +38,5 @@ group :test do
   gem 'rspec-rails'
   gem 'page-object'
   gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
