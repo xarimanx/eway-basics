@@ -37,6 +37,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'capybara-webkit'
+  gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'site_prism'
