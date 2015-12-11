@@ -2,6 +2,8 @@ class OrdersNewPage < SitePrism::Page
   set_url('/orders/new')
   set_url_matcher(/\/orders\/new/)
 
+  element :error, '.has-error'
+
   element :product, '#order_product'
   element :price, '#order_price'
 

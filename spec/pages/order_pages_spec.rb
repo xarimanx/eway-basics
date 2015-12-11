@@ -4,7 +4,7 @@ feature 'Orders', js: true, type: :feature do
   let(:index_page) { OrdersIndexPage.new }
   let(:order) { create :order }
 
-  describe 'new page' do
+  describe '#new' do
     let(:new_page) { OrdersNewPage.new }
 
     before :each do
@@ -13,14 +13,21 @@ feature 'Orders', js: true, type: :feature do
       expect(new_page.form_visible?).to be_truthy
     end
 
-    it 'create order' do
+    it 'order' do
       new_page.create_order('New product', '10')
       expect(index_page).to have_success
       expect(index_page).to have_order_table
     end
+
+    it 'with errors' do
+      new_page.product.set('New product') # it's the same as 17 string
+      new_page.price.set('abc')
+      new_page.save.click
+      expect(new_page.error.visible?).to be_truthy
+    end
   end
 
-  describe 'edit page' do
+  describe '#edit' do
     let(:edit_page) { OrdersEditPage.new }
 
     before :each do
@@ -29,15 +36,14 @@ feature 'Orders', js: true, type: :feature do
       expect(edit_page.form_visible?).to be_truthy
     end
 
-    it 'edit order' do
-      edit_page.product.set('test')
-      edit_page.price.set('12')
-      edit_page.save.click
+    it 'order' do
+      edit_page.create_order('Edited order', '8.20')
       expect(index_page).to be_displayed
+      expect(index_page.success.text).to eq('×Updated!')
     end
   end
 
-  describe 'show page' do
+  describe '#show page' do
     let(:show_page) { OrdersShowPage.new }
 
     before :each do
@@ -45,6 +51,9 @@ feature 'Orders', js: true, type: :feature do
       expect(show_page).to be_displayed
     end
 
-    it { expect(show_page).to have_edit }
+      it { expect(show_page).to have_back }
+      it { expect(show_page).to have_edit }
+      it { expect(show_page).to have_delete }
+      it { expect(show_page.text).to include("Product: #{order.product}", "Price: $#{order.price}") }
   end
 end
