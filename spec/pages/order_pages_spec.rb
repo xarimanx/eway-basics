@@ -56,4 +56,18 @@ feature 'Orders', js: true, type: :feature do
       it { expect(show_page).to have_delete }
       it { expect(show_page.text).to include("Product: #{order.product}", "Price: $#{order.price}") }
   end
+
+  describe 'todo' do
+    let(:checkout_page) { CheckoutEditPage.new }
+    let(:order_2) { create :order, price: 10 }
+
+    before :each do
+      checkout_page.load order_id: order_2.id
+    end
+
+    it 'ololo' do
+      checkout_page.pay_as_jrandom
+      expect(page).to have_content('"ResponseMessage":"A2000"') # TODO change to finalize page
+    end
+  end
 end

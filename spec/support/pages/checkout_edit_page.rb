@@ -1,5 +1,6 @@
 class CheckoutEditPage < SitePrism::Page
-  set_url('/orders/{id}/checkout/edit')
+
+  set_url('/orders/{order_id}/checkout/edit')
   set_url_matcher(/\/orders\/\d+\/checkout\/edit/)
 
   class EwayForm < SitePrism::Section
@@ -11,7 +12,33 @@ class CheckoutEditPage < SitePrism::Page
     element :f_name, '#EWAY_SHIPPINGFIRSTNAME'
     element :l_name, '#EWAY_SHIPPINGLASTNAME'
     element :zip, '#EWAY_SHIPPINGPOSTALCODE'
+    element :submit, 'input[name="commit"]'
   end
 
-  section :form, EwayForm, 'form.form.order'
+  section :form, EwayForm, '.form.order'
+
+  delegate *EwayForm.mapped_items, to: :form, prefix: false
+
+  def pay(options={})
+    card_holder.set options[:card_holder]
+    card_number.set options[:card_number]
+    exp_month.set   options[:exp_month]
+    exp_year.set    options[:exp_year]
+    card_cvn.set    options[:card_cvn]
+    f_name.set      options[:f_name]
+    l_name.set      options[:l_name]
+    zip.set         options[:zip]
+    submit.click
+  end
+
+  def pay_as_jrandom
+    pay card_holder: 'JOHN RANDOM',
+        card_number: '4444333322221111',
+        exp_month: '10',
+        exp_year: '2020',
+        card_cvn: '132',
+        f_name: 'John',
+        l_name: 'Random',
+        zip: '123456'
+  end
 end
