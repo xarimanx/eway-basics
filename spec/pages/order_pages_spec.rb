@@ -57,17 +57,30 @@ feature 'Orders', js: true, type: :feature do
       it { expect(show_page.text).to include("Product: #{order.product}", "Price: $#{order.price}") }
   end
 
-  describe 'todo' do
+  describe '#checkout' do
     let(:checkout_page) { CheckoutEditPage.new }
-    let(:order_2) { create :order, price: 10 }
 
-    before :each do
-      checkout_page.load order_id: order_2.id
+    before(:each) do
+      checkout_page.load order_id: order.id
+      expect(checkout_page).to be_displayed
+      expect(checkout_page).to have_form
     end
 
-    it 'ololo' do
+    it 'successful payment' do
       checkout_page.pay_as_jrandom
-      expect(page).to have_content('"ResponseMessage":"A2000"') # TODO change to finalize page
+      expect(index_page.success.text).to eq('×Transaction Approved')
+    end
+
+    it 'wrong payment' do
+      checkout_page.pay(card_holder: 'JOHN RANDOM',
+                        card_number: '0000333322221111',
+                        exp_month: '10',
+                        exp_year: '2020',
+                        card_cvn: '132',
+                        f_name: 'John',
+                        l_name: 'Random',
+                        zip: '123456')
+      expect(index_page.alert.text).to eq('×Invalid EWAY_CARDNUMBER')
     end
   end
 end
