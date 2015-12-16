@@ -10,8 +10,15 @@ require 'capybara/webkit'
 require 'capybara-screenshot'
 require 'factory_girl_rails'
 require 'site_prism'
+require 'simplecov'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+SimpleCov.formatters = [
+    SimpleCov::Formatter::HTMLFormatter
+]
+
+SimpleCov.start 'rails'
 
 ActiveRecord::Migration.maintain_test_schema!
 
