@@ -1,4 +1,6 @@
-class CheckoutEditPage < SitePrism::Page
+require_relative 'general_page'
+
+class CheckoutEditPage < GeneralPage
 
   set_url('/orders/{order_id}/checkout/edit')
   set_url_matcher(/\/orders\/\d+\/checkout\/edit/)
@@ -12,7 +14,6 @@ class CheckoutEditPage < SitePrism::Page
     element :f_name, '#EWAY_SHIPPINGFIRSTNAME'
     element :l_name, '#EWAY_SHIPPINGLASTNAME'
     element :zip, '#EWAY_SHIPPINGPOSTALCODE'
-    element :submit, 'input[name="commit"]'
   end
 
   section :form, EwayForm, '.form.order'
