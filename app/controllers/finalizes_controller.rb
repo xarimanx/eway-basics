@@ -1,4 +1,5 @@
 class FinalizesController < ApplicationController
+  include OrdersHelper
   def show
     result = nil
     Curl::Easy.http_get("#{EWAY_SERVICE_URL}/AccessCode/#{params[:AccessCode]}") do |curl|
@@ -14,10 +15,5 @@ class FinalizesController < ApplicationController
     end
     data = JSON.parse(result)
     redirect_to(orders_path, flash: data['ResponseMessage'] == 'A2000' ? {success: EWAY_CODES[data['ResponseMessage']]} : {alert: EWAY_CODES[data['ResponseMessage']]} )
-  end
-
-  helper_method :order
-  def order
-    @order ||= Order.find(params[:order_id])
   end
 end

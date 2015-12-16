@@ -1,4 +1,5 @@
 class CheckoutsController < ApplicationController
+  include OrdersHelper
   def new
     redirect_to result['SharedPaymentUrl']
   end
@@ -33,10 +34,5 @@ class CheckoutsController < ApplicationController
     end
     # p JSON.parse(result)
     JSON.parse(result)
-  end
-
-  helper_method :order
-  def order
-    @order ||= Order.find(params[:order_id])
   end
 end
