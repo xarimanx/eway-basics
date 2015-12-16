@@ -1,5 +1,4 @@
 class FinalizesController < ApplicationController
-  include OrdersHelper
   def show
     result = nil
     Curl::Easy.http_get("#{EWAY_SERVICE_URL}/AccessCode/#{params[:AccessCode]}") do |curl|
