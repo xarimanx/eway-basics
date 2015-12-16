@@ -22,7 +22,7 @@ feature 'Orders', js: true, type: :feature do
     it 'with errors' do
       new_page.product.set('New product') # it's the same as 17 string
       new_page.price.set('abc')
-      new_page.save.click
+      new_page.submit.click
       expect(new_page).to have_error
     end
   end
@@ -63,10 +63,10 @@ feature 'Orders', js: true, type: :feature do
     end
   end
 
-  describe '#checkout' do
+  describe '#checkout edit page' do
     let(:checkout_page) { CheckoutEditPage.new }
 
-    before(:each) do
+    before :each do
       checkout_page.load order_id: order.id
       expect(checkout_page).to be_displayed
       expect(checkout_page).to have_form
@@ -87,6 +87,33 @@ feature 'Orders', js: true, type: :feature do
                         l_name: 'Random',
                         zip: '123456')
       expect(index_page.alert.text).to eq('×Invalid EWAY_CARDNUMBER')
+    end
+  end
+
+  describe '#checkout new page' do
+    let(:checkout_page) { CheckoutNewPage.new }
+
+    before :each do
+      checkout_page.load order_id: order.id
+      expect(checkout_page).to be_displayed
+    end
+
+    it { expect(checkout_page).to be_secure }
+    it { expect(checkout_page.forms_visible?).to be_truthy }
+
+    it 'successful payment' do
+      checkout_page.pay_as_jrandom
+      expect(index_page.success.text).to eq('×Transaction Approved')
+    end
+
+    it 'wrong payment' do
+      checkout_page.pay(card_holder: 'JOHN RANDOM',
+                        card_number: '0000333322221111',
+                        exp_month: '10',
+                        exp_year: '20',
+                        card_cvn: '123')
+      expect(checkout_page.alert.text).to eq('Invalid Card Number')
+      expect(checkout_page).to be_displayed
     end
   end
 end
