@@ -15,7 +15,7 @@ feature 'Orders', js: true, type: :feature do
 
     it 'order' do
       new_page.create_order('New product', '10')
-      expect(index_page).to have_success
+      expect(index_page.success.text).to eq('×Created!')
       expect(index_page).to have_order_table
     end
 
@@ -23,7 +23,7 @@ feature 'Orders', js: true, type: :feature do
       new_page.product.set('New product') # it's the same as 17 string
       new_page.price.set('abc')
       new_page.save.click
-      expect(new_page.error.visible?).to be_truthy
+      expect(new_page).to have_error
     end
   end
 
@@ -55,6 +55,12 @@ feature 'Orders', js: true, type: :feature do
       it { expect(show_page).to have_edit }
       it { expect(show_page).to have_delete }
       it { expect(show_page.text).to include("Product: #{order.product}", "Price: $#{order.price}") }
+
+    it 'destroy order' do
+      show_page.delete.click
+      expect(index_page).to_not have_order_table
+      expect(index_page.success.text).to eq('×Destroyed!')
+    end
   end
 
   describe '#checkout' do
