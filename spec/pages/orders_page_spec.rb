@@ -14,7 +14,9 @@ describe 'Orders', type: :feature do
     end
 
     it 'with errors' do
-      new_page.create_order('test', 'a')
+      new_page.product = 'test_product'
+      new_page.price = 'not_number'
+      new_page.submit
       expect(new_page.text).to include('Price is not a number')
     end
   end
