@@ -3,14 +3,16 @@ require_relative 'general_page'
 class OrderEditPage < GeneralPage
   include PageObject
 
-  text_field :card_holder, id: 'EWAY_CARDNAME'
-  text_field :card_number, id: 'EWAY_CARDNUMBER'
-  select_list :exp_month, id: 'EWAY_CARDEXPIRYMONTH'
-  select_list :exp_year, id: 'EWAY_CARDEXPIRYYEAR'
-  text_field :card_cvn, id: 'EWAY_CARDCVN'
-  text_field :f_name, id: 'EWAY_SHIPPINGFIRSTNAME'
-  text_field :l_name, id: 'EWAY_SHIPPINGLASTNAME'
-  text_field :zip, id: 'EWAY_SHIPPINGPOSTALCODE'
+  # /orders/:id/edit
+
+  text_field  :card_holder, id: 'EWAY_CARDNAME'
+  text_field  :card_number, id: 'EWAY_CARDNUMBER'
+  select_list :exp_month,   id: 'EWAY_CARDEXPIRYMONTH'
+  select_list :exp_year,    id: 'EWAY_CARDEXPIRYYEAR'
+  text_field  :card_cvn,    id: 'EWAY_CARDCVN'
+  text_field  :f_name,      id: 'EWAY_SHIPPINGFIRSTNAME'
+  text_field  :l_name,      id: 'EWAY_SHIPPINGLASTNAME'
+  text_field  :zip,         id: 'EWAY_SHIPPINGPOSTALCODE'
 
   def pay(options={})
     self.card_holder = options[:card_holder]
