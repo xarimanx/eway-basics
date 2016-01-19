@@ -43,14 +43,22 @@ describe 'Orders', type: :feature do
   describe '#checkout new page' do
     let(:checkout_page) { CheckoutNewPage.new browser, false }
     let!(:order) { create :order }
-    before :each do
-      checkout_page.navigate_to new_order_checkout_url(order)
-      expect(checkout_page.current_url).to include('https://secure-au.sandbox.ewaypayments.com/sharedpage/sharedpayment?AccessCode=')
-    end
+    before(:each) { checkout_page.navigate_to new_order_checkout_url(order) }
 
-    it 'pay order' do
+    it { expect(checkout_page.current_url).to include('https://secure-au.sandbox.ewaypayments.com/sharedpage/sharedpayment?AccessCode=') }
+
+    it 'successful payment' do
       checkout_page.pay_as_jrandom
       expect(index_page.text).to include('Transaction Approved')
+    end
+
+    it 'wrong payment' do
+      checkout_page.pay(card_holder: 'JOHN RANDOM',
+                        card_number: '0000333322221111',
+                        exp_month: 'June',
+                        exp_year: '2020',
+                        card_cvn: '132')
+      expect(checkout_page.alert).to eq('Invalid Card Number')
     end
   end
 end
