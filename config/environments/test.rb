@@ -39,4 +39,10 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  EWAY_PAY_BUTTON_KEY = 'epk-1CD35F2A-ECD6-405D-A10B-046D3B4E9784'
+
+  EWAY_API_KEY = 'F9802CLDSnmOLrbsY7sUIGYA6ugt50ks0bekkGUXQobgdHbuYjG3DGkUotYCP1fgZbDpqH'
+  EWAY_API_PASS = 'mUvnJZZS'
+  EWAY_SERVICE_URL = 'https://api.sandbox.ewaypayments.com'
 end

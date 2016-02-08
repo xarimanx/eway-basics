@@ -1,4 +1,9 @@
 = form_for order, html: { class: "form form-horizontal order" } do |f|
+  - if order.errors.full_messages.any?
+    .has-error
+      - order.errors.full_messages.each do |error_message|
+        %span.help-block= error_message
+        %br/
   .form-group
     = f.label :product, class: 'control-label'
     .controls

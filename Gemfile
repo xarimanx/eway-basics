@@ -33,3 +33,13 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'site_prism'
+  gem 'simplecov',      require: false
+end

@@ -31,7 +31,6 @@ class CheckoutsController < ApplicationController
         result = response.body_str
       }
     end
-    p JSON.parse(result)
     JSON.parse(result)
   end
 
