@@ -33,3 +33,11 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'page-object'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
+end
